@@ -1,21 +1,20 @@
 const express = require("express");
 const path = require("path");
+const router = require("./routes/posts");
 
 const app = express();
 const port = process.env.PORT || 9000;
 
-const posts = [
-  { id: 1, body: "Post 1" },
-  { id: 2, body: "Post 2" },
-  { id: 3, body: "Post 3" },
-];
+// to parse json data
+app.use(express.json());
+
+// to parse form data
+app.use(express.urlencoded({ extended: false }));
 
 // set a static folder
 // app.use(express.static("./public"));
 
-app.get("/posts", (req, res) => {
-  res.json(posts);
-});
+app.use("/api/v1/posts", router);
 
 // app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname, "public", "index.html"));
